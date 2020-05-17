@@ -12,11 +12,13 @@
 		</form>
 
 		<table id="todo_table">
+			{% for item in items %}
 			<tr>
 				<td>
-					1. {{ new_item }}
+					{{ forloop.counter }}. {{ item.text }}
 				</td>
 			</tr>
+			{% endfor %}
 		</table>
 	</body>
 </html>
