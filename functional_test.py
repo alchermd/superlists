@@ -36,9 +36,9 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
 
-		table = self.browser.get_element_by_id('todo_table')
+		table = self.browser.find_element_by_id('todo_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertContains('1. Buy peacock feathers', [row.text for row in rows])
+		self.assertIn('1. Buy peacock feathers', [row.text for row in rows])
 
 		self.fail('Finish the test!')
 
