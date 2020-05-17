@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
+	def check_for_row_in_table(self, text, table_id):
+		table = self.browser.find_element_by_id(table_id)
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(text, [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# Edith has heard about a cool new online to-do app. She goes
 		# and visits its home page.
@@ -35,10 +40,7 @@ class NewVisitorTest(unittest.TestCase):
 		# "1. Buy peacock feathers"
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
-
-		table = self.browser.find_element_by_id('todo_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1. Buy peacock feathers', [row.text for row in rows])
+		self.check_for_row_in_table('1. Buy peacock feathers', 'todo_table')
 
 		# There is still a box inviting her to add another item. She enters
 		# "Use peacock feathers to make a fly"
@@ -48,10 +50,8 @@ class NewVisitorTest(unittest.TestCase):
 		time.sleep(1)
 
 		# The page updates again, and now both items are on the list
-		table = self.browser.find_element_by_id('todo_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1. Buy peacock feathers', [row.text for row in rows])
-		self.assertIn('2. Use peacock feathers to make a fly', [row.text for row in rows])
+		self.check_for_row_in_table('1. Buy peacock feathers', 'todo_table')
+		self.check_for_row_in_table('2. Use peacock feathers to make a fly', 'todo_table')
 
 		self.fail('Finish the test!')
 
