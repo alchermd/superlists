@@ -54,3 +54,17 @@ I find that leaves things a little too vague, so I usually like to use a second 
 - The scratchpad to-do list
 
 	A place to write down things that occur to us as we’re coding, so that we can finish up what we’re doing and come back to them later.
+
+### Testing "Best Practices" 
+
+- Ensuring test isolation and managing global state
+
+	Different tests shouldn’t affect one another. This means we need to reset any permanent state at the end of each test. Django’s test runner helps us do this by creating a test database, which it wipes clean in between each test. 
+
+- Avoid "voodoo" sleeps
+	
+	Whenever we need to wait for something to load, it’s always tempting to throw in a quick-and-dirty time.sleep. But the problem is that the length of time we wait is always a bit of a shot in the dark, either too short and vulnerable to spurious failures, or too long and it’ll slow down our test runs. Prefer a retry loop that polls our app and moves on as soon as possible.
+
+- Don’t rely on Selenium’s implicit waits
+	
+	Selenium does theoretically do some "implicit" waits, but the implementation varies between browsers, and at the time of writing was highly unreliable in the Selenium 3 Firefox driver. "Explicit is better than implict", as the Zen of Python says, so prefer explicit waits.
