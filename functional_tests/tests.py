@@ -64,8 +64,6 @@ class NewVisitorTest(LiveServerTestCase):
 		self.wait_for_row_in_table('1. Buy peacock feathers', 'todo_table')
 		self.wait_for_row_in_table('2. Use peacock feathers to make a fly', 'todo_table')
 
-		self.fail('Finish the test!')
-
 		# Satisfied, she goes back to sleep
 
 	def test_multiple_users_can_start_lists_at_different_urls(self):
